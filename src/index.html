@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Lots</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  </head>
+
+  <body>
+    <!-- Відбори-пошук -->
+  <section class=" container">
+   <div class="selection">
+      <ul class="form-list">
+        <li class="form-item">
+          <label class="form-field">
+            <input type="text" name="name" placeholder="Лот" autofocus />
+            <span class="form-label"></span>
+            </svg>
+          </label>
+        </li>
+        <li class="form-item">
+          <label class="form-field">
+            <input type="tel" name="tel" placeholder="Вартість" />
+            <span class="form-label"></span>
+            </svg>
+          </label>
+        </li>
+        <li class="form-item">
+          <label class="form-field">
+            <input type="email" name="mail" placeholder="Статус" />
+            <span class="form-label"></span>
+            </svg>
+          </label>
+        </li>
+      </ul>
+
+      <form class="search-form" id="search-form">
+        <input type="text" name="query" autocomplete="off" placeholder="Пошук лоту" />
+      </form>
+
+      <button class="load-more-button is-hidden" type="button">
+            Пошук 
+          </button>
+        </section>
+   </div>
+  </section>
+
+  <!-- Список елементів -->
+  <section class="container">
+    <table class="table gallery js-gallery">
+      <thead class="gallery__item title">
+        <th>Лот</th>
+        <th>Очікувана вартість</th>
+        <th>Статус лота</th>
+        <th>Статуси процедур</th>
+        <th>Посилання</th>
+        <th>Переможець</th>
+        <th>Ціна за одиницю</th>
+        <th>Дата публікації</th>
+      </thead>
+      <!-- Список <th> -->
+    </table>
+
+    <!-- <ul class="gallery js-gallery">
+    </ul> -->
+    
+    <div class="lightbox js-lightbox">
+      <div class="lightbox__overlay"></div>
+    
+      <div class="lightbox__content">
+        <img class="lightbox__image" />
+      </div>
+    
+      <button class="lightbox__button" type="button" data-action="close-lightbox"></button>
+    </div>
+
+<!-- Модальне вікно -->
+    <div class="backdrop is-hidden">
+      <div class="modal-form"></div>>
+        
+      </div>
+    </div>
+
+  <!-- Cкролл вверх страницы -->
+  <a class="toTopBtn" href="#" id="toTop">
+    <div class="icon">
+      <i class="material-icons">arrow_upward</i>
+    </div>
+  </a>
+ 
+  </body>
+</html>
