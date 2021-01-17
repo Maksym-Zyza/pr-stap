@@ -47,9 +47,8 @@ th {
 
 .gallery__image {
   color: #454545;
-  /* background-color: #f1fefe; */
   background-color: #fad8bf;
-  cursor: zoom-in;
+  /* cursor: zoom-in; */
   transition: transform var(--animation-duration) var(--timing-function);
 }
 
@@ -64,7 +63,6 @@ th {
 
 /* Search-input */
 .selection {
-  /* margin: 5px 400px; */
   margin-bottom: 2px;
   padding: 10px;
   text-align: center;
