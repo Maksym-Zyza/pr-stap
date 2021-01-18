@@ -8,30 +8,29 @@ import './styles.css';
 import gallery from "./js/array_elements";
 
 // ЛОГИКА:
-// При відкритті сторінки динамічно завантажуються наявні записи.
+// + При відкритті сторінки динамічно завантажуються наявні записи.
 // При кліку на строку - відкривається форма над модалкою
 // Форма містить детальні дані строки
 // Записи сортуються від більшого значення до меншого по числах.
 // По відповідних записах наявнві відбори приклад АВІТО! 
-
-//             <th> ${lot}</th>
-//             <th> ${expected_cost}</th>
-//             <th> ${buy_proc}</th>
-//             <th> ${status_proc}</th>
-//             <th> ${https}</th>
-//             <th> ${winner}</th>
-//             <th> ${price_unit}</th>
-//             <th> ${date_publication}</th>
-
 
 // 1.Создание и рендер разметки по массиву данных и предоставленному шаблону.
 const refs = {
   galleryList: document.querySelector(".js-gallery"),
   activeImgOutput: document.querySelector(".js-active-tag"),
   backdrop: document.querySelector(".backdrop"),
+  inform: document.querySelector('.inform_lots'),
+  informLots: document.querySelector('.inform_activ_lots'),
 };
 
-function getImgParam({date_publication, lot, expected_cost, organizer, winner, status_proc, buy_proc, lot_status, https}) {
+function getLotsParam({date_publication, lot, expected_cost, organizer, winner, status_proc, buy_proc, lot_status, https}) {
+  // if (document.documentElement.clientWidth < 500) {
+  //   return `<thead class="gallery__image">
+  //           <th> ${date_publication}</th>
+  //           <th> ${lot}</th>
+  //           <th> ${expected_cost}</th>
+  //         </thead>`;
+  //  }
   return `<thead class="gallery__image">
             <th> ${date_publication}</th>
             <th> ${lot}</th>
@@ -45,14 +44,63 @@ function getImgParam({date_publication, lot, expected_cost, organizer, winner, s
           </thead>`;
 }
 
-function getImg(arr) {
-  const list = `${arr.map((item) => getImgParam(item)).join("")}`;
-  return list;
+    function getLots(gallery) {
+      const list = `${gallery.map((item) => getLotsParam(item)).join("")}`;
+
+      // filterByDate()
+      filterBySum()
+      filterByActivStatus()
+      filterByActivLots()
+      refs.inform.textContent = `Знайдено лотів: ${gallery.length}`
+      return list;
+    }
+
+refs.galleryList.insertAdjacentHTML("beforeend", getLots(gallery));
+// console.log(refs.inform);
+
+    function filterByDate() {
+      
+      let minDate = "30.11.2020";
+      let maxDate = "15.12.2020";
+
+      minDate = minDate.split('.').reverse().join('');
+      maxDate = maxDate.split('.').reverse().join('');
+
+      const filterDateMap = gallery.map(gallery =>
+        (Number((gallery.date_publication).split('.').reverse().join(''))) <= maxDate &&
+        (Number((gallery.date_publication).split('.').reverse().join(''))) >= minDate);
+      // console.log(filterDateMap);
+
+      const filterDate = gallery.filter(gallery =>
+        (Number((gallery.date_publication).split('.').reverse().join(''))) <= maxDate &&
+        (Number((gallery.date_publication).split('.').reverse().join(''))) >= minDate);
+      console.log(filterDate);
+    }
+
+function filterBySum() {
+      const min = 50;
+      const max = 1000000;
+
+      const filterSum = gallery.filter(gallery =>
+        (Number((gallery.expected_cost).split(' ').join('').slice(0, -3))) <= max &&
+        (Number((gallery.expected_cost).split(' ').join('').slice(0, -3))) >= min);
+       console.log(filterSum);
+
 }
+ 
+function filterByActivStatus() {
+  const filterStatus = gallery.filter(gallery =>
+    ((gallery.status_proc).split(' ').join('').includes("Актив")));
+      console.log(filterStatus);
+ }
 
-refs.galleryList.insertAdjacentHTML("beforeend", getImg(gallery));
-console.log(refs.galleryList);
-
+function filterByActivLots() {
+  const filterLots = gallery.filter(gallery =>
+    ((gallery.lot_status).split(' ').join('').includes("Актив")));
+  console.log(filterLots);
+  refs.informLots.textContent = `Активних лотів: ${filterLots.length}`
+  
+ }
 // // 2.Делегирования на галерее ul.js-gallery и получение url большого изображения.
 // refs.galleryList.addEventListener("click", onElClick);
 

@@ -53,7 +53,7 @@ th {
 }
 
 .gallery__image:hover {
-  transform: scale(1.02);
+  transform: scale(1.01);
 }
 
 /* .material-icons {
@@ -78,10 +78,10 @@ th {
 
 input {
   width: 162px;
-  height: 24px;
+  height: 30px;
   border-radius: 5px;
   padding-left: 20px;
-  font-size: 14px;
+  font-size: 15px;
   border: 1px solid;
   outline: none;
 }
@@ -91,7 +91,7 @@ input {
   display: inline-block;
   margin-left: 5px;
   margin-top: 5px;
-  height: 25px;
+  height: 30px;
   padding: 0 30px;
   border: 0;
   border-radius: 10px;
@@ -103,6 +103,20 @@ input {
 
 .load-more-button:hover {
   transform: scale(1.03);
+}
+
+/* inform */
+.inform_lots,
+.inform_activ_lots {
+  color: #454545;
+  font-weight: 500;
+  display: inline-block;
+  margin: 4px 12px;
+}
+
+.inform_line {
+  background-color: blanchedalmond;
+  border-radius: 5px;
 }
 
 /* form-choose */
