@@ -11,34 +11,35 @@
   <body>
     <!-- Відбори-пошук -->
   <section class="selection">
-   <div class="">
+   <div class="form_conteiner">
       <ul class="form-list">
         <li class="form-item">
-          <label class="form-field">
-            <input type="text" name="name" placeholder="Лот" autofocus />
-            <span class="form-label"></span>
+          <label for="date" class="form-field">
+            <input class="input_date" type="data" name="date" placeholder="Дата від" />
+            <span class="form-label-from"></span>
+            </svg>
+          
+            <input class="input_date" type="data" name="date" placeholder="Дата до" />
+            <span class="form-label-to"></span>
             </svg>
           </label>
         </li>
         <li class="form-item">
           <label class="form-field">
-            <input type="tel" name="tel" placeholder="Вартість" />
+            <input class="input_sum" type="email" name="mail" placeholder="Сума від" />
+            <input class="input_sum" type="email" name="mail" placeholder="Сума до" />
             <span class="form-label"></span>
             </svg>
           </label>
         </li>
-        <li class="form-item">
-          <label class="form-field">
-            <input type="email" name="mail" placeholder="Статус" />
-            <span class="form-label"></span>
-            </svg>
-          </label>
+        <li>
+          <form class="search-form" id="search-form">
+            <input class="input" type="text" name="query" autocomplete="off" placeholder="Назва лота" />
+          </form>
         </li>
       </ul>
 
-      <form class="search-form" id="search-form">
-        <input type="text" name="query" autocomplete="off" placeholder="Детально" />
-      </form>
+      
 
       <button class="load-more-button is-hidden" type="button">
             Пошук 
@@ -53,10 +54,10 @@
   <p class="inform_activ_lots"></p>
 </div>
 
-  <!-- Список елементів -->
+  <!-- Table lots -->
   <section class="">
     <table class="table gallery js-gallery">
-      <thead class="gallery__item title">
+      <thead class="gallery__item table_title">
         <th>Дата</th>
         <th>Лот</th>
         <th>Очікувана вартість</th>
