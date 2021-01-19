@@ -21,8 +21,13 @@ const refs = {
   backdrop: document.querySelector(".backdrop"),
   inform: document.querySelector('.inform_lots'),
   informLots: document.querySelector('.inform_activ_lots'),
+  informSum: document.querySelector('.inform_sum'),
+  informProc: document.querySelector('.inform_proc'),
+  dateUpdate: document.querySelector('.date_update'),
 };
 
+// Дата оновлення даних
+refs.dateUpdate.textContent = `Оновлено: 31.12.2020, 14:03:04`
 function getLotsParam({date_publication, lot, expected_cost, organizer, winner, status_proc, buy_proc, lot_status, https}) {
   // if (document.documentElement.clientWidth < 500) {
   //   return `<thead class="gallery__image">
@@ -58,6 +63,8 @@ function getLotsParam({date_publication, lot, expected_cost, organizer, winner, 
 refs.galleryList.insertAdjacentHTML("beforeend", getLots(gallery));
 // console.log(refs.inform);
 
+
+// ==== Фильтер по даті
     function filterByDate() {
       
       let minDate = "30.11.2020";
@@ -77,29 +84,46 @@ refs.galleryList.insertAdjacentHTML("beforeend", getLots(gallery));
       console.log(filterDate);
     }
 
+// ==== Фильтер по вартості
 function filterBySum() {
-      const min = 50;
-      const max = 1000000;
-
-      const filterSum = gallery.filter(gallery =>
-        (Number((gallery.expected_cost).split(' ').join('').slice(0, -3))) <= max &&
-        (Number((gallery.expected_cost).split(' ').join('').slice(0, -3))) >= min);
-       console.log(filterSum);
-
+      const minSum = 1;
+      const maxSum = 1000000000000;
+  
+  const filterSum = gallery.filter((gallery) =>
+     (Number(gallery.expected_cost.split("").join("").replace(/\s+/g, '').replace(/,/, ".")) <= maxSum &&
+      Number(gallery.expected_cost.split("").join("").replace(/\s+/g, '').replace(/,/, ".")) >= minSum));
+  // console.log(filterSum);
+  
+  // === Сумма відфільтровантих лотів по вартості
+  const mapSum = filterSum.map(filterSum => Number(filterSum.expected_cost.split("").join("").replace(/\s+/g, '').replace(/,/, ".")));
+  // console.log(mapSum);
+   let totalSum = 0;
+      function allNumb (numbers) {
+        for (const number of numbers)
+        if (Number(number)) {
+          totalSum += number;  
+        }
+        return totalSum
+      }
+  totalSum = Math.round(allNumb(mapSum))
+  console.log(totalSum);
+  
 }
- 
+
+// ==== Фильтер по статусу процедури
 function filterByActivStatus() {
+   console.log("Status");
   const filterStatus = gallery.filter(gallery =>
     ((gallery.status_proc).split(' ').join('').includes("Актив")));
-      console.log(filterStatus);
+  console.log(filterStatus);
  }
 
+// ==== Фильтер по статусу лотів
 function filterByActivLots() {
   const filterLots = gallery.filter(gallery =>
     ((gallery.lot_status).split(' ').join('').includes("Актив")));
-  console.log(filterLots);
   refs.informLots.textContent = `Активних лотів: ${filterLots.length}`
-  
+  // console.log(filterLots);
  }
 // // 2.Делегирования на галерее ul.js-gallery и получение url большого изображения.
 // refs.galleryList.addEventListener("click", onElClick);

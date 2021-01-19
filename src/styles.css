@@ -157,7 +157,8 @@ body {
 
 /* Info-section */
 .inform_lots,
-.inform_activ_lots {
+.inform_activ_lots,
+.date_update {
   color: #454545;
   font-weight: 500;
   display: inline-block;
