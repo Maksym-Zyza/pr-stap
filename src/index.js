@@ -114,7 +114,7 @@ function filterBySum(minSum, maxSum, arr, selectActiv) {
   refs.galleryList.innerHTML = '';
       getLots(filterSum)
       refs.galleryList.insertAdjacentHTML("beforeend", getLots(filterSum));
-      refs.lots.textContent = `Знайдено лотів: ${filterSum.length}`
+      // refs.lots.textContent = `Знайдено лотів: ${filterSum.length}`
 
   filterByActivLots(filterSum, selectActiv)
 }
@@ -131,8 +131,8 @@ function filterByActivLots(arr, selectActiv) {
     refs.galleryList.innerHTML = '';
       getLots(filterLots)
       refs.galleryList.insertAdjacentHTML("beforeend", getLots(filterLots));
-      refs.lots.textContent = `Знайдено лотів: ${filterLots.length}`
-      refs.activLots.textContent = `Зі статусом: "${selectActiv}": ${filterLots.length}`
+      // refs.lots.textContent = `Знайдено лотів: ${filterLots.length}`
+      refs.activLots.textContent = `Знайдено лотів зі статусом: "${selectActiv}": ${filterLots.length}`
     
   console.log(filterLots.length);
 
