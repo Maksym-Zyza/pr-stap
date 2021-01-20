@@ -303,3 +303,44 @@ export default {
   // }
 
   
+//   apiService
+//     .fetchImages()
+//     .then(images => {
+//       if (images.length === 0) {
+//       notice.showNotice();
+
+//         return;
+//       }
+
+//       updateMarkup(images);
+//       refs.button.classList.remove('is-hidden');
+//       scroll();
+
+//       if (apiService.page < 3) {
+//         notice.showSuccess()
+//       } else {
+//       refs.btnToTop.classList.add('is-hidden');
+//        }
+//     })
+//     .catch(({message})=> notise.showError(message));
+
+//   // === Сумма відфільтровантих лотів по вартості
+//   const mapSum = filterSum.map(filterSum => Number(filterSum.expected_cost.split("").join("").replace(/\s+/g, '').replace(/,/, ".")));
+//   // console.log(mapSum);
+//    let totalSum = 0;
+//       function allNumb (numbers) {
+//         for (const number of numbers)
+//         if (Number(number)) {
+//           totalSum += number;  
+//         }
+//         return totalSum
+//       }
+//   totalSum = Math.round(allNumb(mapSum))
+//   console.log(totalSum);
+
+// // ==== Фильтер по статусу процедури
+// function filterByActivStatus() {
+//   const filterStatus = gallery.filter(gallery =>
+//     ((gallery.status_proc).split(' ').join('').includes("Активний")));
+//   // console.log(filterStatus);
+//  }

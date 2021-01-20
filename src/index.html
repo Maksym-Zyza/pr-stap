@@ -14,27 +14,46 @@
    <div class="form_conteiner">
       <ul class="form-list">
         <li class="form-item">
-          <label for="date" class="form-field">
-            <input class="input_date" type="date" id="date_start" name="date-start" value="2020-01-01" min="2020-12-31" max="2040-12-31" />
-            <span class="form-label-from"></span>
-            </svg>
-          
+          <label class="form-field">
+            <input class="input_date" type="date" id="date_start" name="date-start" value="2020-01-01" min="2020-01-01" max="2040-12-31" />
             <input class="input_date" type="date" id="date_end" name="date-end" value="2020-12-31" min="2020-01-01" max="2040-12-31"  />
-            <span class="form-label-to"></span>
             </svg>
           </label>
         </li>
         <li class="form-item">
           <label class="form-field">
-            <input class="input_sum" type="number" id="number_start" name="number-start" placeholder="Сума від" />
-            <input class="input_sum" type="number" id="number_end" name="number-end" placeholder="Сума до" />
+            <select class="select_sum" id="select-start">
+              <option value="0">0</option>
+              <option value="100">100</option>
+              <option value="1000">1000</option>
+              <option value="10000">10000</option>
+              <option value="100000">100000</option>
+              <option value="1000000">1000000</option>
+              <option value="10000000">10000000</option>
+              <option value="100000000">100000000</option>
+            </select>
+            <select class="select_sum" id="select-end">
+              <option value="1000000000">1000000000</option>
+              <option value="100000000">100000000</option>
+              <option value="10000000">10000000</option>
+              <option value="1000000">1000000</option>
+              <option value="100000">100000</option>
+              <option value="100000">100000</option>
+              <option value="10000">10000</option>
+            </select>
             <span class="form-label"></span>
             </svg>
           </label>
         </li>
         <li>
           <form class="search-form" id="search-form">
-            <input class="input" type="text" name="query" autocomplete="off" placeholder="Назва лота" />
+            <select class="select" id="select">
+              <option value="Всі">Всі закупівлі</option>
+              <option value="Активний">Активний лот закупівлі</option>
+              <option value="Завершено">Завершено лот закупівлі</option>
+              <option value="Неуспішний">Неуспішний лот закупівлі</option>
+              <option value="Скасовано">Скасовано лот закупівлізакупівлі</option>
+            </select>
           </form>
         </li>
       </ul>
