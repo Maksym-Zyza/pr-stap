@@ -15,19 +15,19 @@
       <ul class="form-list">
         <li class="form-item">
           <label for="date" class="form-field">
-            <input class="input_date" type="data" name="date" placeholder="Дата від" />
+            <input class="input_date" type="date" id="date_start" name="date-start" value="2020-01-01" min="2020-12-31" max="2040-12-31" />
             <span class="form-label-from"></span>
             </svg>
           
-            <input class="input_date" type="data" name="date" placeholder="Дата до" />
+            <input class="input_date" type="date" id="date_end" name="date-end" value="2020-12-31" min="2020-01-01" max="2040-12-31"  />
             <span class="form-label-to"></span>
             </svg>
           </label>
         </li>
         <li class="form-item">
           <label class="form-field">
-            <input class="input_sum" type="email" name="mail" placeholder="Сума від" />
-            <input class="input_sum" type="email" name="mail" placeholder="Сума до" />
+            <input class="input_sum" type="number" id="number_start" name="number-start" placeholder="Сума від" />
+            <input class="input_sum" type="number" id="number_end" name="number-end" placeholder="Сума до" />
             <span class="form-label"></span>
             </svg>
           </label>

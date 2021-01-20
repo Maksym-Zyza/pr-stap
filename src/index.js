@@ -16,15 +16,23 @@ import gallery from "./js/array_elements";
 
 // 1.Создание и рендер разметки по массиву данных и предоставленному шаблону.
 const refs = {
-  galleryList: document.querySelector(".js-gallery"),
-  activeImgOutput: document.querySelector(".js-active-tag"),
-  backdrop: document.querySelector(".backdrop"),
+  
   inform: document.querySelector('.inform_lots'),
   informLots: document.querySelector('.inform_activ_lots'),
-  informSum: document.querySelector('.inform_sum'),
-  informProc: document.querySelector('.inform_proc'),
   dateUpdate: document.querySelector('.date_update'),
+  dateStart: document.querySelector('#date_start'),
+  dateEnd: document.querySelector('#date_end'),
+  numberStart: document.querySelector('#number_start'),
+  numberEnd: document.querySelector('#number_end'),
+
+  galleryList: document.querySelector(".js-gallery"),
+  backdrop: document.querySelector(".backdrop"),
+  activeImgOutput: document.querySelector(".js-active-tag"),
 };
+console.dir(refs.dateStart.value);
+console.log(refs.dateEnd.value);
+console.dir(refs.numberStart.value);
+console.log(refs.numberEnd.value);
 
 // Дата оновлення даних
 refs.dateUpdate.textContent = `Оновлено: 31.12.2020, 14:03:04`
@@ -52,7 +60,7 @@ function getLotsParam({date_publication, lot, expected_cost, organizer, winner, 
     function getLots(gallery) {
       const list = `${gallery.map((item) => getLotsParam(item)).join("")}`;
 
-      // filterByDate()
+      filterByDate()
       filterBySum()
       filterByActivStatus()
       filterByActivLots()
@@ -67,8 +75,8 @@ refs.galleryList.insertAdjacentHTML("beforeend", getLots(gallery));
 // ==== Фильтер по даті
     function filterByDate() {
       
-      let minDate = "30.11.2020";
-      let maxDate = "15.12.2020";
+      let minDate = "01.01.2020";
+      let maxDate = "31.12.2020";
 
       minDate = minDate.split('.').reverse().join('');
       maxDate = maxDate.split('.').reverse().join('');
@@ -112,10 +120,9 @@ function filterBySum() {
 
 // ==== Фильтер по статусу процедури
 function filterByActivStatus() {
-   console.log("Status");
   const filterStatus = gallery.filter(gallery =>
     ((gallery.status_proc).split(' ').join('').includes("Актив")));
-  console.log(filterStatus);
+  // console.log(filterStatus);
  }
 
 // ==== Фильтер по статусу лотів
