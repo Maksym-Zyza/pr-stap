@@ -1,216 +1,83 @@
 import './styles.css';
 // import './js/modal'
-// import refs from './js/refs'
+import refs from './js/refs'
 // import apiService from './js/apiService'
 // import updateMarkup from './js/markup'
 // import scroll from './js/scroll';
 // import notice from './js/notification'
 import gallery from "./js/array_elements";
+import startSearch from './js/search-getLots'
 
-// ЛОГИКА:
-// + При відкритті сторінки динамічно завантажуються наявні записи.
-// При кліку на строку - відкривається форма над модалкою
-// Форма містить детальні дані строки
-// Записи сортуються від більшого значення до меншого по числах.
-// По відповідних записах наявнві відбори приклад АВІТО! 
+// 1.Создание и рендер разметки - search-getLots
 
-// 1.Создание и рендер разметки по массиву данных и предоставленному шаблону.
-const refs = {
-  dateStart: document.querySelector('#date_start'),
-  dateEnd: document.querySelector('#date_end'),
-  sumStart: document.querySelector('#select-start'),
-  sumrEnd: document.querySelector('#select-end'),
-  selectActiv: document.querySelector('#select'),
-
-  dateUpdate: document.querySelector('.date_update'),
-  lots: document.querySelector('.find_lots'),
-  activLots: document.querySelector('.activ_lots'),
-  allLots: document.querySelector('.all_lots'),
-
-  button: document.querySelector('.load-more-button'),
-  btnToTop: document.querySelector('.toTopBtn'),
-
-  galleryList: document.querySelector(".js-gallery"),
-  backdrop: document.querySelector(".backdrop"),
-  activeImgOutput: document.querySelector(".js-active-tag"),
-};
-// console.log(refs.lots);
-// console.log(refs.activLots);
-// console.log(refs.allLots);
-
-// Дата оновлення даних
+// ======= Інфо про оновлення лотів ====
 refs.dateUpdate.textContent = `Оновлено: 31.12.2020, 14:03:04`
-function getLotsParam({date_publication, lot, expected_cost, organizer, winner, status_proc, buy_proc, lot_status, https}) {
-  // if (document.documentElement.clientWidth < 500) {
-  //   return `<thead class="gallery__image">
-  //           <th> ${date_publication}</th>
-  //           <th> ${lot}</th>
-  //           <th> ${expected_cost}</th>
-  //         </thead>`;
-  //  }
-  return `<thead class="gallery__image">
-            <th> ${date_publication}</th>
-            <th> ${lot}</th>
-            <th> ${expected_cost}</th>
-            <th> ${organizer}</th>
-            <th> ${winner}</th>
-            <th> ${lot_status}</th>
-            <th> ${status_proc}</th>
-            <th> ${buy_proc}</th>
-            <th> <a href="${https}">Перейти</a></th>
-          </thead>`;
+
+// 2.Делегирования на галерее ul.js-gallery и получение url большого изображения.
+refs.galleryList.addEventListener("click", onElClick);
+
+function onElClick(event) {
+  if (event.target.nodeName !== "TH" ) {
+    console.dir(event.target);
+    return;
+  }
+
+  const activeEl = event.target;
+
+  setActiveImg(activeEl);
+  openModal(activeEl);
 }
-    function getLots(gallery) {
-      const list = `${gallery.map((item) => getLotsParam(item)).join("")}`;
-      return list;
+
+function setActiveImg(activeEl) {
+  const currentEl = refs.galleryList.querySelector(".js-img--active");
+console.log(currentEl);
+
+  if (currentEl) {
+    currentEl.classList.remove("js-img--active");
+  }
+
+  activeEl.classList.add("js-img--active");
+}
+
+// 3.Открытие модального окна по клику на элементе галереи.
+const modalDiv = document.querySelector(".js-lightbox");
+console.log(modalDiv);
+const butonClose = modalDiv.querySelector('[data-action="close-lightbox"]');
+const openImg = modalDiv.querySelector(".lightbox__image");
+const overlayDiv = modalDiv.querySelector(".lightbox__overlay");
+
+function openModal(img) {
+  window.addEventListener("keydown", onPressEscape);
+  modalDiv.classList.add("is-open");
+  // refs.backdrop.add("is-hidden");
+
+  // 4.Подмена значения атрибута src элемента img.lightbox__image.
+  gallery.find(({ preview, original }) => {
+    if (preview === img.src) {
+      openImg.src = original;
     }
-refs.galleryList.insertAdjacentHTML("beforeend", getLots(gallery));
-refs.allLots.textContent = `${gallery.length}`
-
-      
-
-// Пошук
-refs.button.addEventListener('click', startSearch);
-
-function startSearch() {
-  refs.button.classList.add('is-hidden');
-  refs.btnToTop.classList.remove('is-hidden');
-
-  const dateStart = Number(refs.dateStart.value.replace(/-/, "").replace(/-/, ""));
-  const dateEnd = Number(refs.dateEnd.value.replace(/-/, "").replace(/-/, ""));
-  const sumStart = Number(refs.sumStart.value);
-  const sumEnd = Number(refs.sumrEnd.value);
-  const selectActiv = refs.selectActiv.value;
-
-      console.log(dateStart);
-      console.log(dateEnd);
-      console.log(sumStart);
-      console.log(sumEnd);
-      console.dir(selectActiv);
-
-    filterByDate(dateStart, dateEnd, sumStart, sumEnd, selectActiv)
-  
+  });
 }
 
-// ==== Фильтер по даті
-    function filterByDate(minDate, maxDate, sumStart, sumEnd, selectActiv) {
-    
-      const filterDate = gallery.filter(gallery =>
-        (Number((gallery.date_publication).split('.').reverse().join(''))) <= maxDate &&
-        (Number((gallery.date_publication).split('.').reverse().join(''))) >= minDate);
-      console.log(filterDate);
-      
-      filterBySum(sumStart, sumEnd, filterDate, selectActiv)
-    }
+// 5.Закрытие модального окна по клику на кнопку button[data-action="close-lightbox"].
+// +Закрытие модального окна по клику на div.lightbox__overlay
+// +Закрытие модального окна по нажатию клавиши ESC
+butonClose.addEventListener("click", closeModal);
+overlayDiv.addEventListener("click", closeModal);
 
-// ==== Фильтер по вартості
-function filterBySum(minSum, maxSum, arr, selectActiv) {
-  
-  const filterSum = arr.filter((arr) =>
-     (Number(arr.expected_cost.split("").join("").replace(/\s+/g, '').replace(/,/, ".")) <= maxSum &&
-      Number(arr.expected_cost.split("").join("").replace(/\s+/g, '').replace(/,/, ".")) >= minSum));
-  console.log(filterSum);
-
-  refs.galleryList.innerHTML = '';
-      getLots(filterSum)
-      refs.galleryList.insertAdjacentHTML("beforeend", getLots(filterSum));
-      // refs.lots.textContent = `Знайдено лотів: ${filterSum.length}`
-
-  filterByActivLots(filterSum, selectActiv)
+function closeModal() {
+  window.removeEventListener("keydown", onPressEscape);
+  modalDiv.classList.remove("is-open");
+  // refs.backdrop.remove("is-hidden");
+  // 6.Очистка значения атрибута src элемента img.lightbox__image.
+  openImg.src = "";
 }
 
-// ==== Фильтер по статусу лотів
-function filterByActivLots(arr, selectActiv) {
-  // const mapLots = arr.map(arr =>
-  //   ((arr.lot_status).split(' ').join('').includes(selectActiv)));
-  // console.log(mapLots);
-  
-    const filterLots = arr.filter(arr =>
-      ((arr.lot_status).split(' ').join('').includes(selectActiv)));
-
-    refs.galleryList.innerHTML = '';
-      getLots(filterLots)
-      refs.galleryList.insertAdjacentHTML("beforeend", getLots(filterLots));
-      // refs.lots.textContent = `Знайдено лотів: ${filterLots.length}`
-      refs.activLots.textContent = `Знайдено лотів зі статусом: "${selectActiv}": ${filterLots.length}`
-    
-  console.log(filterLots.length);
-
-    // if (filterLots.length === 0) {
-    //    refs.galleryList.innerHTML = '';
-    //   getLots(arr)
-    //   refs.galleryList.insertAdjacentHTML("beforeend", getLots(arr));
-    //   refs.lots.textContent = `${arr.length}`
-    //   refs.activLots.textContent = `${filterLots.length}`
-  // } 
+function onPressEscape(event) {
+  if (event.code === "Escape") {
+    closeModal();
+  }
 }
- 
-
-// // 2.Делегирования на галерее ul.js-gallery и получение url большого изображения.
-// refs.galleryList.addEventListener("click", onElClick);
-
-// function onElClick(event) {
-//   if (event.target.nodeName !== "TH" ) {
-//     console.dir(event.target);
-//     return;
-//   }
-
-//   const activeEl = event.target;
-
-//   setActiveImg(activeEl);
-//   openModal(activeEl);
-// }
-
-// function setActiveImg(activeEl) {
-//   const currentEl = refs.galleryList.querySelector(".js-img--active");
-// console.log(currentEl);
-
-//   if (currentEl) {
-//     currentEl.classList.remove("js-img--active");
-//   }
-
-//   activeEl.classList.add("js-img--active");
-// }
-
-// // 3.Открытие модального окна по клику на элементе галереи.
-// const modalDiv = document.querySelector(".js-lightbox");
-// console.log(modalDiv);
-// const butonClose = modalDiv.querySelector('[data-action="close-lightbox"]');
-// const openImg = modalDiv.querySelector(".lightbox__image");
-// const overlayDiv = modalDiv.querySelector(".lightbox__overlay");
-
-// function openModal(img) {
-//   window.addEventListener("keydown", onPressEscape);
-//   modalDiv.classList.add("is-open");
-//   // refs.backdrop.add("is-hidden");
-
-//   // 4.Подмена значения атрибута src элемента img.lightbox__image.
-//   gallery.find(({ preview, original }) => {
-//     if (preview === img.src) {
-//       openImg.src = original;
-//     }
-//   });
-// }
-
-// // 5.Закрытие модального окна по клику на кнопку button[data-action="close-lightbox"].
-// // +Закрытие модального окна по клику на div.lightbox__overlay
-// // +Закрытие модального окна по нажатию клавиши ESC
-// butonClose.addEventListener("click", closeModal);
-// overlayDiv.addEventListener("click", closeModal);
-
-// function closeModal() {
-//   window.removeEventListener("keydown", onPressEscape);
-//   modalDiv.classList.remove("is-open");
-//   // refs.backdrop.remove("is-hidden");
-//   // 6.Очистка значения атрибута src элемента img.lightbox__image.
-//   openImg.src = "";
-// }
-
-// function onPressEscape(event) {
-//   if (event.code === "Escape") {
-//     closeModal();
-//   }
-// }
 
 
 // refs.form.addEventListener('submit', formSubmit);
