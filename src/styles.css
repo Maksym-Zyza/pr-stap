@@ -158,13 +158,21 @@ body {
 } */
 
 /* Info-section */
-.inform_lots,
-.inform_activ_lots,
+.inform,
 .date_update {
   color: #454545;
   font-weight: 500;
   display: inline-block;
   margin: 4px 12px;
+}
+
+.find_lots,
+.activ_lots,
+.all_lots {
+  color: #454545;
+  font-weight: 500;
+  display: inline-block;
+  margin-left: 2px;
 }
 
 .inform_line {

@@ -22,9 +22,10 @@ const refs = {
   sumrEnd: document.querySelector('#select-end'),
   selectActiv: document.querySelector('#select'),
 
-  inform: document.querySelector('.inform_lots'),
-  informLots: document.querySelector('.inform_activ_lots'),
   dateUpdate: document.querySelector('.date_update'),
+  lots: document.querySelector('.find_lots'),
+  activLots: document.querySelector('.activ_lots'),
+  allLots: document.querySelector('.all_lots'),
 
   button: document.querySelector('.load-more-button'),
   btnToTop: document.querySelector('.toTopBtn'),
@@ -33,6 +34,9 @@ const refs = {
   backdrop: document.querySelector(".backdrop"),
   activeImgOutput: document.querySelector(".js-active-tag"),
 };
+// console.log(refs.lots);
+// console.log(refs.activLots);
+// console.log(refs.allLots);
 
 // Дата оновлення даних
 refs.dateUpdate.textContent = `Оновлено: 31.12.2020, 14:03:04`
@@ -56,15 +60,14 @@ function getLotsParam({date_publication, lot, expected_cost, organizer, winner, 
             <th> <a href="${https}">Перейти</a></th>
           </thead>`;
 }
-
     function getLots(gallery) {
       const list = `${gallery.map((item) => getLotsParam(item)).join("")}`;
       return list;
     }
 refs.galleryList.insertAdjacentHTML("beforeend", getLots(gallery));
-// console.log(refs.inform);
-      refs.inform.textContent = `Знайдено лотів: ${gallery.length}`
-      refs.informLots.textContent = `Активних лотів: ${gallery.length}`
+refs.allLots.textContent = `${gallery.length}`
+
+      
 
 // Пошук
 refs.button.addEventListener('click', startSearch);
@@ -72,11 +75,6 @@ refs.button.addEventListener('click', startSearch);
 function startSearch() {
   refs.button.classList.add('is-hidden');
   refs.btnToTop.classList.remove('is-hidden');
-
-     
-  console.dir(refs.sumStart.value);
-  console.log(refs.sumrEnd.value);
-  console.log(refs.selectActiv.value);
 
   const dateStart = Number(refs.dateStart.value.replace(/-/, "").replace(/-/, ""));
   const dateEnd = Number(refs.dateEnd.value.replace(/-/, "").replace(/-/, ""));
@@ -88,7 +86,7 @@ function startSearch() {
       console.log(dateEnd);
       console.log(sumStart);
       console.log(sumEnd);
-      console.log(selectActiv);
+      console.dir(selectActiv);
 
     filterByDate(dateStart, dateEnd, sumStart, sumEnd, selectActiv)
   
@@ -116,11 +114,8 @@ function filterBySum(minSum, maxSum, arr, selectActiv) {
   refs.galleryList.innerHTML = '';
       getLots(filterSum)
       refs.galleryList.insertAdjacentHTML("beforeend", getLots(filterSum));
-      refs.inform.textContent = `Знайдено лотів: ${filterSum.length}`
-      refs.informLots.textContent = `Активних лотів: ${filterSum.length}`
+      refs.lots.textContent = `Знайдено лотів: ${filterSum.length}`
 
-  // refs.inform.textContent = `Знайдено лотів: ${arr.length}`
-  // refs.informLots.textContent = `Активних лотів: ${arr.length}`
   filterByActivLots(filterSum, selectActiv)
 }
 
@@ -136,17 +131,18 @@ function filterByActivLots(arr, selectActiv) {
     refs.galleryList.innerHTML = '';
       getLots(filterLots)
       refs.galleryList.insertAdjacentHTML("beforeend", getLots(filterLots));
-      refs.inform.textContent = `Знайдено лотів: ${filterLots.length}`
-      refs.informLots.textContent = `Активних лотів: ${filterLots.length}`
+      refs.lots.textContent = `Знайдено лотів: ${filterLots.length}`
+      refs.activLots.textContent = `Зі статусом: "${selectActiv}": ${filterLots.length}`
     
   console.log(filterLots.length);
-    if (filterLots.length === 0) {
-       refs.galleryList.innerHTML = '';
-      getLots(arr)
-      refs.galleryList.insertAdjacentHTML("beforeend", getLots(arr));
-      refs.inform.textContent = `Знайдено лотів: ${arr.length}`
-      refs.informLots.textContent = `Активних лотів: ${arr.length}`
-  } 
+
+    // if (filterLots.length === 0) {
+    //    refs.galleryList.innerHTML = '';
+    //   getLots(arr)
+    //   refs.galleryList.insertAdjacentHTML("beforeend", getLots(arr));
+    //   refs.lots.textContent = `${arr.length}`
+    //   refs.activLots.textContent = `${filterLots.length}`
+  // } 
 }
  
 
