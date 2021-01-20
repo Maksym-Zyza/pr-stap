@@ -186,6 +186,7 @@ body {
   position: absolute;
   z-index: 100;
   width: 90%;
+  height: 95%;
   padding: 10px;
   background: linear-gradient(45deg, #e6e9f0, #eef1f5);
   top: 50%;
