@@ -14,8 +14,12 @@ const refs = {
   btnToTop: document.querySelector('.toTopBtn'),
 
   galleryList: document.querySelector(".js-gallery"),
+  galleryLot: document.querySelector(".gallery_lot"),
   backdrop: document.querySelector(".backdrop"),
   activeImgOutput: document.querySelector(".js-active-tag"),
+
+  overlay: document.querySelector(".lightbox__overlay"),
+
 };
 
 export default refs;

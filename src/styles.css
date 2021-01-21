@@ -185,7 +185,6 @@ body {
 .lot-card {
   position: absolute;
   width: 80%;
-  height: 92%;
   padding: 7px;
   background: linear-gradient(45deg, #e6e9f0, #eef1f5);
   top: 50%;
@@ -244,15 +243,10 @@ th {
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
 }
 
-.gallery__image {
+.gallery_lot {
   color: #454545;
   background-color: #fad8bf;
   cursor: zoom-in;
-  transition: transform var(--animation-duration) var(--timing-function);
-}
-
-.gallery__image:hover {
-  transform: scale(1.01);
 }
 
 /* Lightbox */
@@ -281,7 +275,7 @@ th {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 1000px;
+  height: 105%;
   background-color: rgba(0, 0, 0, 0.8);
 }
 

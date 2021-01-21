@@ -1,12 +1,15 @@
 import './styles.css';
-// import './js/modal'
+// // import './js/modal'
 import refs from './js/refs'
-// import apiService from './js/apiService'
-// import updateMarkup from './js/markup'
-// import scroll from './js/scroll';
-// import notice from './js/notification'
+// // import apiService from './js/apiService'
+// // import updateMarkup from './js/markup'
+// // import scroll from './js/scroll';
+// // import notice from './js/notification'
+
+// import getLots from './js/search-getLots'
 import gallery from "./js/array_elements";
 import startSearch from './js/search-getLots'
+import galleryItem from './templates/lot-card.hbs';
 
 // ======= Інфо про оновлення лотів ====
 refs.dateUpdate.textContent = `Оновлено: 31.12.2020, 14:03:04`
@@ -23,10 +26,11 @@ function onElClick(event) {
     return;
   }
 
-  const activeEl = event.target;
-  console.log(event.target);
+  const activeEl = event.target.parentElement.dataset.id;
+  console.log(event.target.parentElement.dataset.id);
 
   openModal(activeEl);
+  fetchlotCard(activeEl);
 }
 
 // 3.Открытие модального окна по клику на элементе галереи.
@@ -56,6 +60,39 @@ function onPressEscape(event) {
 }
 
 
+function fetchlotCard(activeEl) {
+
+  const lot = gallery.filter(gallery =>
+    ((gallery.id).includes(activeEl)));
+  
+  console.log({lot});
+
+ function updateMarkup(lot) {
+  const markup = galleryItem(images);
+  refs.gallery.insertAdjacentHTML('beforeend', markup);
+ 
+}
+ 
+
+  
+//   console.log(filterLots);
+
+    // refs.overlay.innerHTML = '';
+    //   getLots(filterLots)
+    // refs.overlay.insertAdjacentHTML("beforeend", getLots(filterLots));
+
+  // if (id = id) {
+    //  const markup = galleryItem(lot);
+  //  }
+
+  // refs.gallery.insertAdjacentHTML('beforeend', markup);
+// }
+}
+
+
+// ==================================================
+
+
 
 // refs.form.addEventListener('submit', formSubmit);
 
@@ -68,28 +105,28 @@ function onPressEscape(event) {
 //   apiService.query = form.elements.query.value;
 
 //   apiService.resetPage();
-//   fetchImages();
+//   fetchlots();
 
 //   form.reset();
   
 // }
 
-// refs.button.addEventListener('click', fetchImages);
+// refs.button.addEventListener('click', fetchlots);
 
-// function fetchImages() {
+// function fetchlots() {
 //   refs.button.classList.add('is-hidden');
 //   refs.btnToTop.classList.remove('is-hidden');
 
 //   apiService
-//     .fetchImages()
-//     .then(images => {
-//       if (images.length === 0) {
+//     .fetchlots()
+//     .then(lot => {
+//       if (lot.length === 0) {
 //       notice.showNotice();
 
 //         return;
 //       }
 
-//       updateMarkup(images);
+//       updateMarkup(lot);
 //       refs.button.classList.remove('is-hidden');
 //       scroll();
 

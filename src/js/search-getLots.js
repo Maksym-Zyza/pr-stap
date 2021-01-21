@@ -5,15 +5,16 @@ import gallery from "./array_elements";
 
 refs.button.addEventListener('click', startSearch);
 // ======= Завантаження лотів =======
-function getLotsParam({date_publication, lot, expected_cost, organizer, winner, status_proc, buy_proc, lot_status, https}) {
+function getLotsParam({id, date_publication, lot, expected_cost, organizer, winner, status_proc, buy_proc, lot_status, https}) {
   // if (document.documentElement.clientWidth < 500) {
-  //   return `<thead class="gallery__image">
+  //   return `<thead class="gallery_lot">
   //           <th> ${date_publication}</th>
   //           <th> ${lot}</th>
   //           <th> ${expected_cost}</th>
   //         </thead>`;
   //  }
-  return `<thead class="gallery__image">
+  return `<thead class="gallery_lot">
+          <tr data-id="${id}">
             <th> ${date_publication}</th>
             <th> ${lot}</th>
             <th> ${expected_cost}</th>
@@ -23,6 +24,7 @@ function getLotsParam({date_publication, lot, expected_cost, organizer, winner, 
             <th> ${status_proc}</th>
             <th> ${buy_proc}</th>
             <th> <a href="${https}" target="_blank">Перейти</a></th>
+          </tr>  
           </thead>`;
 }
     function getLots(gallery) {
