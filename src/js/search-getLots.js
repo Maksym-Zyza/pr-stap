@@ -22,7 +22,7 @@ function getLotsParam({date_publication, lot, expected_cost, organizer, winner, 
             <th> ${lot_status}</th>
             <th> ${status_proc}</th>
             <th> ${buy_proc}</th>
-            <th> <a href="${https}">Перейти</a></th>
+            <th> <a href="${https}" target="_blank">Перейти</a></th>
           </thead>`;
 }
     function getLots(gallery) {
