@@ -65,11 +65,13 @@ function fetchlotCard(activeEl) {
   const lot = gallery.filter(gallery =>
     ((gallery.id).includes(activeEl)));
   
-  console.log({lot});
+  console.log(lot);
+
+  updateMarkup(lot);
 
  function updateMarkup(lot) {
-  const markup = galleryItem(images);
-  refs.gallery.insertAdjacentHTML('beforeend', markup);
+  const markup = galleryItem(lot);
+  refs.overlay.insertAdjacentHTML('beforeend', markup);
  
 }
  
