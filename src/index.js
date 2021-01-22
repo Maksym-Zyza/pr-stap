@@ -3,7 +3,7 @@ import './styles.css';
 import refs from './js/refs'
 // // import apiService from './js/apiService'
 // // import updateMarkup from './js/markup'
-// // import scroll from './js/scroll';
+// import scroll from './js/scroll';
 // // import notice from './js/notification'
 
 // import getLots from './js/search-getLots'
@@ -37,16 +37,16 @@ function onElClick(event) {
 const modalDiv = document.querySelector(".js-lightbox");
 console.log(modalDiv);
 const butonClose = modalDiv.querySelector('[data-action="close-lightbox"]');
-// const overlayDiv = modalDiv.querySelector(".lightbox__overlay");
 
-function openModal(img) {
+function openModal() {
   window.addEventListener("keydown", onPressEscape);
   modalDiv.classList.add("is-open");
 }
 
 // 4. Закрытие модального окна 
 butonClose.addEventListener("click", closeModal);
-// overlayDiv.addEventListener("click", closeModal);
+modalDiv.addEventListener("click", closeModal);
+
 
 function closeModal() {
   window.removeEventListener("keydown", onPressEscape);
@@ -67,12 +67,13 @@ function fetchlotCard(activeEl) {
   
   console.log(lot);
 
+  refs.overlay.innerHTML = '';
   updateMarkup(lot);
 
  function updateMarkup(lot) {
   const markup = galleryItem(lot);
-  refs.overlay.insertAdjacentHTML('beforeend', markup);
- 
+   refs.overlay.insertAdjacentHTML('beforeend', markup);
+    
 }
  
 

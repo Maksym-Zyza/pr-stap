@@ -69,7 +69,7 @@ function filterBySum(minSum, maxSum, arr, selectActiv) {
   refs.galleryList.innerHTML = '';
       getLots(filterSum)
       refs.galleryList.insertAdjacentHTML("beforeend", getLots(filterSum));
-      // refs.lots.textContent = `Знайдено лотів: ${filterSum.length}`
+      refs.findLots.textContent = `Знайдено лотів за параметрами пошуку: ${filterSum.length}`
   filterByActivLots(filterSum, selectActiv)
 }
 
@@ -78,23 +78,24 @@ function filterByActivLots(arr, selectActiv) {
   // const mapLots = arr.map(arr =>
   //   ((arr.lot_status).split(' ').join('').includes(selectActiv)));
   // console.log(mapLots);
+    
+  // Пошук постатусах
+  if (selectActiv !== "Всі статуси") {
+     const filterLots = arr.filter(arr =>
+        ((arr.lot_status).split(' ').join('').includes(selectActiv)));
+
+      refs.galleryList.innerHTML = '';
+      getLots(filterLots)
+      refs.galleryList.insertAdjacentHTML("beforeend", getLots(filterLots));
+      refs.activLots.textContent = `Знайдено лотів за параметрами пошуку: "${selectActiv}": ${filterLots.length}`
+      console.log('Фильтр по статусу:', filterLots.length);
+      refs.findLots.textContent = `Знайдено лотів зі статусом "${selectActiv}": ${filterLots.length}`
+   }
   
-    const filterLots = arr.filter(arr =>
+  // Кількість Активних лотів
+       selectActiv = "Активний"
+    const filterLotsActiv = arr.filter(arr =>
       ((arr.lot_status).split(' ').join('').includes(selectActiv)));
 
-    refs.galleryList.innerHTML = '';
-      getLots(filterLots)
-    refs.galleryList.insertAdjacentHTML("beforeend", getLots(filterLots));
-      
-      refs.activLots.textContent = `Знайдено лотів зі статусом: "${selectActiv}": ${filterLots.length}`
-    
-       console.log('Фильтр по статусу:',filterLots.length);
-
-    // if (filterLots.length === 0) {
-    //    refs.galleryList.innerHTML = '';
-    //   getLots(arr)
-    //   refs.galleryList.insertAdjacentHTML("beforeend", getLots(arr));
-    //   refs.lots.textContent = `${arr.length}`
-    //   refs.activLots.textContent = `${filterLots.length}`
-  // } 
+    refs.activLots.textContent = `Активних лотів: ${filterLotsActiv.length}`
 }

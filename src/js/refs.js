@@ -6,7 +6,7 @@ const refs = {
   selectActiv: document.querySelector('#select'),
 
   dateUpdate: document.querySelector('.date_update'),
-  lots: document.querySelector('.find_lots'),
+  findLots: document.querySelector('.find_lots'),
   activLots: document.querySelector('.activ_lots'),
   allLots: document.querySelector('.all_lots'),
 
@@ -18,6 +18,7 @@ const refs = {
   backdrop: document.querySelector(".backdrop"),
   activeImgOutput: document.querySelector(".js-active-tag"),
 
+  lightbox: document.querySelector(".js-lightbox"),
   overlay: document.querySelector(".lightbox__overlay"),
 
 };
