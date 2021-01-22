@@ -1,12 +1,6 @@
 import './styles.css';
-// // import './js/modal'
 import refs from './js/refs'
-// // import apiService from './js/apiService'
-// // import updateMarkup from './js/markup'
-// import scroll from './js/scroll';
-// // import notice from './js/notification'
 
-// import getLots from './js/search-getLots'
 import gallery from "./js/array_elements";
 import startSearch from './js/search-getLots'
 import galleryItem from './templates/lot-card.hbs';
@@ -14,10 +8,8 @@ import galleryItem from './templates/lot-card.hbs';
 // ======= Інфо про оновлення лотів ====
 refs.dateUpdate.textContent = `Оновлено: 31.12.2020, 14:03:04`
 
-// 1.Создание и рендер разметки
-// startSearch -'./js/search-getLots'
 
-// 2.Делегирования на галерее ul.js-gallery и получение url большого изображения.
+// 1. Клик на лот и получение id
 refs.galleryList.addEventListener("click", onElClick);
 
 function onElClick(event) {
@@ -27,15 +19,27 @@ function onElClick(event) {
   }
 
   const activeEl = event.target.parentElement.dataset.id;
-  console.log(event.target.parentElement.dataset.id);
+  // console.log(event.target.parentElement.dataset.id);
 
   openModal(activeEl);
   fetchlotCard(activeEl);
 }
 
+// 2.Создание и ренде разметки оп id
+function fetchlotCard(activeEl) {
+
+  const lot = gallery.filter(gallery =>
+    ((gallery.id).includes(activeEl)));
+  // console.log(lot);
+
+  refs.overlay.innerHTML = '';
+  const markupLot = galleryItem(lot);
+  refs.overlay.insertAdjacentHTML('beforeend', markupLot);  
+}
+
+
 // 3.Открытие модального окна по клику на элементе галереи.
 const modalDiv = document.querySelector(".js-lightbox");
-console.log(modalDiv);
 const butonClose = modalDiv.querySelector('[data-action="close-lightbox"]');
 
 function openModal() {
@@ -45,7 +49,7 @@ function openModal() {
 
 // 4. Закрытие модального окна 
 butonClose.addEventListener("click", closeModal);
-modalDiv.addEventListener("click", closeModal);
+// modalDiv.addEventListener("click", closeModal);
 
 
 function closeModal() {
@@ -57,39 +61,6 @@ function onPressEscape(event) {
   if (event.code === "Escape") {
     closeModal();
   }
-}
-
-
-function fetchlotCard(activeEl) {
-
-  const lot = gallery.filter(gallery =>
-    ((gallery.id).includes(activeEl)));
-  
-  console.log(lot);
-
-  refs.overlay.innerHTML = '';
-  updateMarkup(lot);
-
- function updateMarkup(lot) {
-  const markup = galleryItem(lot);
-   refs.overlay.insertAdjacentHTML('beforeend', markup);
-    
-}
- 
-
-  
-//   console.log(filterLots);
-
-    // refs.overlay.innerHTML = '';
-    //   getLots(filterLots)
-    // refs.overlay.insertAdjacentHTML("beforeend", getLots(filterLots));
-
-  // if (id = id) {
-    //  const markup = galleryItem(lot);
-  //  }
-
-  // refs.gallery.insertAdjacentHTML('beforeend', markup);
-// }
 }
 
 

@@ -1,9 +1,9 @@
 import refs from './refs';
 import galleryItem from '../templates/image-card.hbs';
 
-function updateMarkup(images) {
-  const markup = galleryItem(images);
-  refs.gallery.insertAdjacentHTML('beforeend', markup);
+function updateMarkup(item) {
+  const markup = galleryItem(item);
+  refs.overlay.insertAdjacentHTML('beforeend', markup);
 }
 
 export default updateMarkup;
